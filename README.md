@@ -32,11 +32,11 @@ This the expected use for this assignment.
 ## To obtain this code...
 ... you must first obtain a copy of the source. Do that by cloning this repository:
 
-    git clone https://bitbucket.org/TedNeward/uw-android-simplekotlin simplekotlin
+    git clone https://bitbucket.org/TedNeward/uw-android-simplekotlin complexkotlin
 
 This will create a local copy of the project. However, in order to *store* your changes to your own GitHub account, you need to create a new repository on GitHub (call it `simplekotlin`), and then change the project's settings to point to that new repository as the remote origin.
 
-    git remote set-url origin https://github.com/[your-ID]/simplekotlin.git
+    git remote set-url origin https://github.com/[your-ID]/complexkotlin.git
 
 This will work regardless of whether you got the syntax of the URL correct or not, so do a quick push to make sure it all worked correctly:
 
@@ -49,20 +49,16 @@ Git will ask you for your username and password, then (if everything was done co
 ## The assignment
 The code is broken into a sequence of sections. Your job is to implement the body of each section, so that the tests will pass.
 
-The first section is intended as an opportunity to experiment with `when`. The `whenFn` takes an `Any` argument, and depending on the value of that argument, will return a String containing "world", "zero", "one", "Say what?" or "I don't understand", according to the following table:
+In the first section, you will be using the collection methods `map` and `fold` to perform the "FIZZBUZZ test". This is a simple algorithm, usually used as part of an interview process as a way of verifying developer skill (and rather poorly at that). FIZZBUZZ goes like this: Iterate across a sequence of numbers (1 to 15), and any number that is divisible by 3 returns "FIZZ", and any number divisible by 5 returns "BUZZ". Numbers which are divisible by both 3 and 5 return "FIZZBUZZ". Use the `map` function to transform the range of numbers into an list of strings (either "FIZZ", "BUZZ" or the empty string ""), and then use `fold` to combine them all down into a single String. The end result should be "FIZZBUZZFIZZFIZZBUZZFIZZFIZZBUZZ". (This is an exercise in understanding how `map` and `fold` work, as they are commonly used in Kotlin code, along with `filter`. You are free to use `filter` as well, if you so choose, but you do not need to in order to pass the tests.)
 
-* If it is "Hello", return "world"
-* If it is any other string, return "I don't understand"
-* If it is 0, return "zero"
-* If it is 1, return "one"
-* If it is any number between 2 and 10, return "low number"
-* If it is any other number, return "a number"
-* Otherwise, return "I don't understand"
+In the second section, your job is to use the `process` function defined in the script to generate strings. The `process` function takes a parameter and a block of code. Your job is to write the call to `process` such that the tests for `r1` and `r2` pass. (This is an exercise in getting the "block syntax" correct.)
 
-The second section is to explore some function syntax. First, write two global functions, "add" and "sub" (subtract), which do exactly as you might expect: take two integers, and add them ("add") or subtract them ("sub") and return the result. Then, write a third function, called "mathOp", which takes two integers and a function argument that takes two integers and returns an int. In the body of `mathOp`, call the passed-in function argument with the two integer arguments, and return the result. (In other words, `mathOp` will simply turn around and call the function argument passed in.)
+In the third section, you are to create an enum class called `Philosopher`. This is going to be a peculiar use of enum, however, as we are going to model a very simple state machine: as everybody knows, philosophers split their time between `THINKING` and `TALKING`, and only shift from one state to the other when told to do so via the method call `signal`. Additionally, each state should override the `toString` function so that when `THINKING`, a philosopher will return "Deep thoughts..." and when `TALKING`, a philosopher will return "Allow me to suggest an idea...". If you are not sure of the syntax here, check out the Kotlin reference page on [Enum classes](http://kotlinlang.org/docs/reference/enum-classes.html). Modeling state machines in a mobile application is a very common occurrence, so it's worth taking the time to give this exercise a shot.
 
-The third section is to explore classes. You are to create a standard "POJO"-type class called "Person", which should have three properties (firstName, a String; lastName, a String; and age, an Int), provide a constructor that takes all three properties as arguments, provides an "equals" implementation that tests whether two Persons hold the same values, and an appropriate "hashCode" implementation. (See "Effective Java", Item 9, for details if you've never seen this before.) Define a read-only "debugString" property on it that returns a String containing the Person data in a format like this: "[Person firstName:Ted lastName:Neward age:45]".
+(By the way, I will give a bonus point to anyone who can find out who Seneca the Younger was, an additional point if you can tell me which school of philosophy he is commonly associated with, and a third point if you can summarize that school of philosophy in a single sentence. On another note, when you have some time to kill, play "The Wikipedia Game"--pick any random subject on Wikipedia, and click the first link on that page. On the page that comes up, click the first link on that page. Continue doing this until you have reached the Wikipedia page on Philosophy, and marvel at how everything in human existence essentially traces its roots back to philosophy and a bunch of dead Greeks in togas.)
 
-The fourth section is to explore classes and operator overloading. Create a class, "Money", that has two properties, "amount" and "currency". "Currency" can be one of "USD", "EUR", "CAN" and "GBP". "Amount" is a standard Int. Define the properties such that "amount" can never be less than zero, and that "currency" can only be one of those four symbols. Define a public method, `convert`, that takes a String argument for the currency type to convert to, and return a new Money instance with the amount converted. Conversion rates should be as follows: 10 USD converts to 5 GBP; 10 USD converts to 15 EUR; 12 USD converts to 15 CAN. (Make sure you can convert in both directions!) Define the "+" operator on Money to return a new instance of Money that adds the amount, converting the currency to the first (left-hand) Money's currency. So adding (10 USD) + (5 GBP) should return a result in USD. Similarly, adding (5 GBP) + (10 USD) should return the result in GBP.
+In the fourth section, create a class called `Command` that can be used as a function. This means you will need to provide a `invoke` method on the class. The primary constructor should take a String parameter (`prompt`), and the `invoke` operator should also take a String parameter (`message`), and simply return a concatenation of the two. 
+
+As with the previous assignment, 5 points if all the tests pass, and 0 points if any of them fail. Where this README appears to disagree with the code, follow the code, but do not change the tests.
 
 

@@ -1,98 +1,67 @@
-// Explore a simple class
+println("UW Complex Kotlin homework")
 
-println("UW Homework: Simple Kotlin")
+// write a lambda using map and fold to solve "FIZZBUZZ" for the first fifteen numbers (0..15)
+// use map to return a list with "", "FIZZ" or "BUZZ" as necessary
+// use fold to compress the array of strings down into a single string
+// the final string should look like FIZZBUZZFIZZFIZZBUZZFIZZFIZZBUZZ
+//
+val mapFoldResults = ""
 
-// write a "whenFn" that takes an arg of type "Any" and returns a String
 
-// write an "add" function that takes two Ints, returns an Int, and adds the values
-// write a "sub" function that takes two Ints, returns an Int, and subtracts the values
-// write a "mathOp" function that takes two Ints and a function (that takes two Ints and returns an Int), returns an Int, and applies the passed-in-function to the arguments
-
-// write a class "Person" with first name, last name and age
-
-// write a class "Money"
-
-// ============ DO NOT EDIT BELOW THIS LINE =============
-
-print("When tests: ")
-val when_tests = listOf(
-    "Hello" to "world",
-    "Howdy" to "Say what?",
-    "Bonjour" to "Say what?",
-    0 to "zero",
-    1 to "one",
-    5 to "low number",
-    9 to "low number",
-    17.0 to "I don't understand"
-)
-for ((k,v) in when_tests) {
-    print(if (whenFn(k) == v) "." else "!")
+// This is a utility function for your use as you choose, and as an
+// example of an extension method
+fun Int.times(block: () -> Unit): Unit {
+    for (it in 1..this) {
+        block()
+    }
 }
-println("")
 
-print("Add tests: ")
-val add_tests = listOf(
-    Pair(0, 0) to 0,
-    Pair(1, 2) to 3,
-    Pair(-2, 2) to 0,
-    Pair(123, 456) to 579
-)
-for ( (k,v) in add_tests) {
-    print(if (add(k.first, k.second) == v) "." else "!")
+// Use this function
+fun process(message: String, block: (String) -> String): String {
+    return ">>> ${message}: {" + block(message) + "}"
 }
-println("")
+val r1 = "" // call process() with message "FOO" and a block that returns "BAR"
 
-print("Sub tests: ")
-val sub_tests = listOf(
-    Pair(0, 0) to 0,
-    Pair(2, 1) to 1,
-    Pair(-2, 2) to -4,
-    Pair(456, 123) to 333
-)
-for ( (k,v) in sub_tests) {
-    print(if (sub(k.first, k.second) == v) "." else "!")
+val r2_message = "wooga"
+val r2 = "" // call process() with message "FOO" and a block that upper-cases 
+            // r2_message, and repeats it three times with no spaces: "WOOGAWOOGAWOOGA"
+
+
+// write an enum-based state machine between talking and thinking
+enum class Philosopher { }
+
+// create an class "Command" that can be used as a function (provide an "invoke()" function)
+// that takes a single parameter ("message" of type String)
+// primary constructor should take a String argument ("prompt")
+// when called, the Command object should return a String containing the prompt and then the message
+class Command(val prompt: String) {
 }
-println("")
-
-print("Op tests: ")
-print(if (mathOp(2, 2, { l,r -> l+r} ) == 4) "." else "!")
-print(if (mathOp(2, 2, ::add ) == 4) "." else "!")
-print(if (mathOp(2, 2, ::sub ) == 0) "." else "!")
-print(if (mathOp(2, 2, { l,r -> l*r} ) == 4) "." else "!")
-println("")
 
 
-print("Person tests: ")
-val p1 = Person("Ted", "Neward", 47)
-print(if (p1.firstName == "Ted") "." else "!")
-p1.age = 48
-print(if (p1.debugString == "[Person firstName:Ted lastName:Neward age:48]") "." else "!")
+
+
+// ================================
+println("map fold test: " + if (mapFoldResults == "FIZZBUZZFIZZFIZZBUZZFIZZFIZZBUZZ") "." else "!")
+
+println("r1 test: " + if (r1 == ">>> FOO: {BAR}") "." else "!")
+
+println("r2 test: " + if (r2 == ">>> FOO: {WOOGAWOOGAWOOGA}") "." else "!")
+
+var seneca = Philosopher.THINKING
+print("Seneca, talk! ")
+seneca = seneca.signal()
+println(if (seneca.toString() == "Allow me to suggest an idea...") "." else "!")
+print("Seneca, think! ")
+seneca = seneca.signal()
+println(if (seneca.toString() == "Deep thoughts....") "." else "!")
+print("Seneca, talk! ")
+seneca = seneca.signal()
+println(if (seneca.toString() == "Allow me to suggest an idea...") "." else "!")
+
+print("Command tests: ")
+print(if (Command("")("") == "") "." else "!")
+print(if (Command("> ")("Hello!") == "> Hello!") "." else "!")
 println("")
 
-print("Money tests: ")
-val tenUSD = Money(10, "USD")
-val twelveUSD = Money(12, "USD")
-val fiveGBP = Money(5, "GBP")
-val fifteenEUR = Money(15, "EUR")
-val fifteenCAN = Money(15, "CAN")
-val convert_tests = listOf(
-    Pair(tenUSD, tenUSD),
-    Pair(tenUSD, fiveGBP),
-    Pair(tenUSD, fifteenEUR),
-    Pair(twelveUSD, fifteenCAN),
-    Pair(fiveGBP, tenUSD),
-    Pair(fiveGBP, fifteenEUR)
-)
-for ( (from,to) in convert_tests) {
-    print(if (from.convert(to.currency).amount == to.amount) "." else "!")
-}
-val moneyadd_tests = listOf(
-    Pair(tenUSD, tenUSD) to Money(20, "USD"),
-    Pair(tenUSD, fiveGBP) to Money(20, "USD"),
-    Pair(fiveGBP, tenUSD) to Money(10, "GBP")
-)
-for ( (pair, result) in moneyadd_tests) {
-    print(if ((pair.first + pair.second).amount == result.amount &&
-              (pair.first + pair.second).currency == result.currency) "." else "!")
-}
-println("")
+
+
